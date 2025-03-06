@@ -1,0 +1,25 @@
+# No copiar archivos de control de versiones
+.git
+.gitignore
+
+# Excluir archivos compilados de Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+
+# Excluir archivos temporales y logs
+*.log
+*.tmp
+
+# Excluir el entorno virtual, ya que se recrea en el contenedor
+app_env
+env
+venv
+
+# Excluir configuraciones locales o archivos sensibles (si los tienes)
+*.env
+
+# Opcional: Excluir directorios o archivos de documentación, tests u otros que no se necesiten en producción
+docs
+tests

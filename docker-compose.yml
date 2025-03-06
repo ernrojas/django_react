@@ -1,0 +1,38 @@
+services:
+  web:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    command: gunicorn core.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - ./server:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DEBUG=0
+      - DATABASE_URL=postgres://myuser:mypassword@db:5432/mydatabase
+
+  db:
+    image: mysql:8.0
+    container_name: my_mysql_db
+    environment:
+      MYSQL_DATABASE: db_imoee
+      MYSQL_ROOT_PASSWORD: mypassword
+      # MYSQL_USER: root
+      # MYSQL_PASSWORD: mypassword
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+
+volumes:
+  mysql_data:
